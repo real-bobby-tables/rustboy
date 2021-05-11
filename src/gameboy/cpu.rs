@@ -1,6 +1,7 @@
 #[derive(Debug)]
 
 
+
 struct Regs {
 	pc: u16;
 	af: u16;
