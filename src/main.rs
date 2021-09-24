@@ -32,12 +32,21 @@ fn sdl_loop() -> () {
 }
 
 #[allow(dead_code)]
-fn read_rom(filename: &str) -> io::Result<()> {
-    let mut rom = File::open(filename)?;
+fn read_rom(filename: &str) -> Option<Vec<u8>> {
+    let mut rom = File::open(filename).unwrap();
     let mut buffer = Vec::new();
-    rom.read_to_end(&mut buffer).expect("Failed to read rom file");
-    println!("Read rom into memory!");
-    Ok(())
+    match rom.read_to_end(&mut buffer)//.expect("Failed to read rom file");
+    {
+        Ok(v) => {
+            println!("Rom size was {0}", v);
+            println!("Successfully read rom into memory!");
+            Some(buffer)
+        },
+        Err(_e) => {
+            println!("Failed to read rom into memory.");
+            None
+        }
+    }
 }
 
 fn main() -> () {
@@ -50,5 +59,5 @@ fn main() -> () {
 
     let rom_name = &args[1];
     println!("Got filename {:?}", rom_name);
-    read_rom(&rom_name);
+    let buff = read_rom(&rom_name);
 }
