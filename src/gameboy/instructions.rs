@@ -8,6 +8,12 @@ enum Regs {
 	AB
 }
 
+
+enum Opcode
+{
+	ins(i32),
+}
+
 enum Instruction {
 	LoadInstruction,
 	ArithmeticInstruction,
